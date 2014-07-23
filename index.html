@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>D3 Visualizations</title>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    </head>
+    <body>
+        <!-- Beginning of entire container-->
+        <div class="container">
+            <h1>A Few Education Visualizations Made with D3</h1> 
+            
+            <div class="row">
+                <!--Navigation bar-->   
+                <div class="col-md-3"> 
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h4>Visualizations</h4></div>
+
+                        <div class="list-group">
+                            <a href="#" class="list-group-item active">US Educational Attainment Over Time</a>
+                            <a href="#" class="list-group-item">Occupations of STEM Degree Holders</a>
+                        </div>
+                    </div>
+                
+                </div>
+
+                <!--Main visualization-->   
+                <div class="col-md-8">
+                    <h4>Educational attainment for adults age 25 and older by state for selected years from 1970-2012</h4>
+                    <div id="ed-attainment"></div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+        <!--D3 code to make Educational attainment vis-->
+        <script type="text/javascript">
+
+            var margin = {top: 20, right: 10, bottom: 20, left: 10};
+            var width = 750 - margin.left - margin.right,
+            height = 505 - margin.top - margin.bottom;
+
+            //Define map projection
+            var projection = d3.geo.albersUsa().translate([width/2,height/2]).scale([500]);
+            //Define path generator
+            var path = d3.geo.path().projection(projection);
+
+
+            var svg = d3.select("div#ed-attainment").append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                        .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+        </script>
+    </body>
+</html>
