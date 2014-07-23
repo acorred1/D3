@@ -22,8 +22,8 @@
                         <div class="panel-heading"><h4>Visualizations</h4></div>
 
                         <div class="list-group">
-                            <a href="#" class="list-group-item active">US Educational Attainment Over Time</a>
-                            <a href="#" class="list-group-item">Occupations of STEM Degree Holders</a>
+                            <a id="ed-attainment-link" href="#" class="list-group-item disabled">US Educational Attainment Over Time</a>
+                            <a id="stem-link" href="#" class="list-group-item">Occupations of STEM Degree Holders</a>
                         </div>
                     </div>
                 
@@ -31,8 +31,10 @@
 
                 <!--Main visualization-->   
                 <div class="col-md-8">
-                    <h4>Educational attainment for adults age 25 and older by state for selected years from 1970-2012</h4>
-                    <div id="ed-attainment"></div>
+                    <div id="ed-attainment">
+                        <h4>Educational attainment for adults age 25 and older by state for selected years from 1970-2012</h4>
+                    </div>
+                    <div class="hide" id="stem">Test</div>
                 </div>
             </div>
 
@@ -52,17 +54,90 @@
             height = 505 - margin.top - margin.bottom;
 
             //Define map projection
-            var projection = d3.geo.albersUsa().translate([width/2,height/2]).scale([500]);
+            var projection = d3.geo.albersUsa().translate([width/2,height/2]).scale([1000]);
             //Define path generator
             var path = d3.geo.path().projection(projection);
-
-
+            //Define color scale on percents
+            var color = d3.scale.linear().domain([0,100]).range(["white","red"]);
+            //Creat svg element
             var svg = d3.select("div#ed-attainment").append("svg")
                         .attr("width", width + margin.left + margin.right)
                         .attr("height", height + margin.top + margin.bottom)
                         .append("g")
                         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+            //Load data
+            d3.csv("Education.csv", function(error,edu_data) {
+                    window.edu_data = edu_data; //For debuggin only. Remove me at the end!
+                    if(error){ console.log(error);}
+                    else{
+                        //Load GeoJSON data
+                        d3.json("us-states.json", function(error,json) {
+                    window.json = json; //For debuggin only. Remove me at the end!
+                            if(error) {console.log(error);}
+                            else{
+                                //Merge json data to education data
+                                //Capitalize on fact that both files have the same order
+                                for(var i = 0; i < json.features.length; i++){
+                                    if( json.features[i].properties.name == edu_data[i].area_name ){
+                                        //1970
+                                        json.features[i].properties.less_hs_1970 = parseFloat(edu_data[i].less_hs_1970);
+                                        json.features[i].properties.hs_1970 = parseFloat(edu_data[i].hs_1970);
+                                        json.features[i].properties.some_college_1970 = parseFloat(edu_data[i].some_college_1970);
+                                        json.features[i].properties.college_higher_1970 = parseFloat(edu_data[i].college_higher_1970);
+                                        //1980
+                                        json.features[i].properties.less_hs_1980 = parseFloat(edu_data[i].less_hs_1980);
+                                        json.features[i].properties.hs_1980 = parseFloat(edu_data[i].hs_1980);
+                                        json.features[i].properties.some_college_1980 = parseFloat(edu_data[i].some_college_1980);
+                                        json.features[i].properties.college_higher_1980 = parseFloat(edu_data[i].college_higher_1980);
+                                        //1990
+                                        json.features[i].properties.less_hs_1990 = parseFloat(edu_data[i].less_hs_1990);
+                                        json.features[i].properties.hs_1990 = parseFloat(edu_data[i].hs_1990);
+                                        json.features[i].properties.some_college_1990 = parseFloat(edu_data[i].some_college_1990);
+                                        json.features[i].properties.college_higher_1990 = parseFloat(edu_data[i].college_higher_1990);
+                                        //2000
+                                        json.features[i].properties.less_hs_2000 = parseFloat(edu_data[i].less_hs_2000);
+                                        json.features[i].properties.hs_2000 = parseFloat(edu_data[i].hs_2000);
+                                        json.features[i].properties.some_college_2000 = parseFloat(edu_data[i].some_college_2000);
+                                        json.features[i].properties.college_higher_2000 = parseFloat(edu_data[i].college_higher_2000);
+                                        //2006-2010
+                                        json.features[i].properties.less_hs_2006_2010 = parseFloat(edu_data[i].less_hs_2006_2010);
+                                        json.features[i].properties.hs_2006_2010 = parseFloat(edu_data[i].hs_2006_2010);
+                                        json.features[i].properties.some_college_2006_2010 = parseFloat(edu_data[i].some_college_2006_2010);
+                                        json.features[i].properties.college_higher_2006_2010 = parseFloat(edu_data[i].college_higher_2006_2010);
+                                        //2007-2011
+                                        json.features[i].properties.less_hs_2007_2011 = parseFloat(edu_data[i].less_hs_2007_2011);
+                                        json.features[i].properties.hs_2007_2011 = parseFloat(edu_data[i].hs_2007_2011);
+                                        json.features[i].properties.some_college_2007_2011 = parseFloat(edu_data[i].some_college_2007_2011);
+                                        json.features[i].properties.college_higher_2007_2011 = parseFloat(edu_data[i].college_higher_2007_2011);
+                                        //2008-2012
+                                        json.features[i].properties.less_hs_2008_2012 = parseFloat(edu_data[i].less_hs_2008_2012);
+                                        json.features[i].properties.hs_2008_2012 = parseFloat(edu_data[i].hs_2008_2012);
+                                        json.features[i].properties.some_college_2008_2012 = parseFloat(edu_data[i].some_college_2008_2012);
+                                        json.features[i].properties.college_higher_2008_2012 = parseFloat(edu_data[i].college_higher_2008_2012);
+                                        }
+                                }
+
+
+                                //Create path elements
+                                svg.selectAll("path").data(json.features).enter().append("path")
+                                    .attr("d",path).attr("stroke","white").style("fill", function(d) { 
+                                            var val = d.properties.less_hs_1970;
+                                            if(val){ return color(val); }
+                                            else{ return "#ccc";}
+                                            });
+
+
+                            
+                            }
+                            } );
+            
+
+
+
+
+                    }           
+            }); 
 
         </script>
     </body>
