@@ -29,153 +29,34 @@
                 </div>
 
                 <!--Main visualization-->   
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div id="ed-attainment">
                         <h4>Educational attainment for adults age 25 and older by state for selected years from 1970-2012</h4>
-                        <div id="tooltip" class="hidden">
-                            <p><strong>Percent of adults with <span id="level">less than a High School diploma</span> in <span id="year">1970</span></strong></p>
-                            <p><span id="value">0</span>%</p>
+                        <div id="ed-tooltip" class="hidden">
+                            <p><strong>Percent of adults with <span id="level"></span> in <span id="state"></span> in <span id="year"></span></strong></p>
+                            <p><span class="value">0</span>%</p>
                         </div>
                     </div>
-                    <div class="hidden" id="stem">Test</div>
+                    <div class="hidden" id="stem">
+                        <h4>Occupation breakdown (STEM vs Non-STEM) for employed adults 25-34 who hold a STEM Bachelor's degree</h4>
+                        <div class="row">
+                            <div id="stem-left" class="col-md-6"></div>
+                            <div id="stem-right" class="col-md-6"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
 
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
+        <!--Code for navigation bar buttons-->
+        <script src="button_toggle.js"></script>
         <!--D3 code to make Educational attainment vis-->
-        <script type="text/javascript">
-
-            var margin = {top: 20, right: 10, bottom: 20, left: 10};
-            var width = 750 - margin.left - margin.right,
-            height = 505 - margin.top - margin.bottom;
-
-            //Define map projection
-            var projection = d3.geo.albersUsa().translate([width/2,height/2]).scale([1000]);
-            //Define path generator
-            var path = d3.geo.path().projection(projection);
-            //Define color scale on percents
-            var color = d3.scale.linear().domain([0,100]).range(["white","red"]);
-            //Creat svg element
-            var svg = d3.select("div#ed-attainment").append("svg")
-                        .attr("width", width + margin.left + margin.right)
-                        .attr("height", height + margin.top + margin.bottom)
-                        .append("g")
-                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-            //Load data
-            d3.csv("Education.csv", function(error,edu_data) {
-                    window.edu_data = edu_data; //For debuggin only. Remove me at the end!
-                    var level = "less_hs_";
-                    var year = "1970";
-                    if(error){ console.log(error);}
-                    else{
-                        //Load GeoJSON data
-                        d3.json("us-states.json", function(error,json) {
-                    window.json = json; //For debuggin only. Remove me at the end!
-                            if(error) {console.log(error);}
-                            else{
-                                //Merge json data to education data
-                                //Capitalize on fact that both files have the same order
-                                for(var i = 0; i < json.features.length; i++){
-                                    if( json.features[i].properties.name == edu_data[i].area_name ){
-                                        //1970
-                                        json.features[i].properties.less_hs_1970 = parseFloat(edu_data[i].less_hs_1970);
-                                        json.features[i].properties.hs_1970 = parseFloat(edu_data[i].hs_1970);
-                                        json.features[i].properties.some_college_1970 = parseFloat(edu_data[i].some_college_1970);
-                                        json.features[i].properties.college_higher_1970 = parseFloat(edu_data[i].college_higher_1970);
-                                        //1980
-                                        json.features[i].properties.less_hs_1980 = parseFloat(edu_data[i].less_hs_1980);
-                                        json.features[i].properties.hs_1980 = parseFloat(edu_data[i].hs_1980);
-                                        json.features[i].properties.some_college_1980 = parseFloat(edu_data[i].some_college_1980);
-                                        json.features[i].properties.college_higher_1980 = parseFloat(edu_data[i].college_higher_1980);
-                                        //1990
-                                        json.features[i].properties.less_hs_1990 = parseFloat(edu_data[i].less_hs_1990);
-                                        json.features[i].properties.hs_1990 = parseFloat(edu_data[i].hs_1990);
-                                        json.features[i].properties.some_college_1990 = parseFloat(edu_data[i].some_college_1990);
-                                        json.features[i].properties.college_higher_1990 = parseFloat(edu_data[i].college_higher_1990);
-                                        //2000
-                                        json.features[i].properties.less_hs_2000 = parseFloat(edu_data[i].less_hs_2000);
-                                        json.features[i].properties.hs_2000 = parseFloat(edu_data[i].hs_2000);
-                                        json.features[i].properties.some_college_2000 = parseFloat(edu_data[i].some_college_2000);
-                                        json.features[i].properties.college_higher_2000 = parseFloat(edu_data[i].college_higher_2000);
-                                        //2006-2010
-                                        json.features[i].properties.less_hs_2006_2010 = parseFloat(edu_data[i].less_hs_2006_2010);
-                                        json.features[i].properties.hs_2006_2010 = parseFloat(edu_data[i].hs_2006_2010);
-                                        json.features[i].properties.some_college_2006_2010 = parseFloat(edu_data[i].some_college_2006_2010);
-                                        json.features[i].properties.college_higher_2006_2010 = parseFloat(edu_data[i].college_higher_2006_2010);
-                                        //2007-2011
-                                        json.features[i].properties.less_hs_2007_2011 = parseFloat(edu_data[i].less_hs_2007_2011);
-                                        json.features[i].properties.hs_2007_2011 = parseFloat(edu_data[i].hs_2007_2011);
-                                        json.features[i].properties.some_college_2007_2011 = parseFloat(edu_data[i].some_college_2007_2011);
-                                        json.features[i].properties.college_higher_2007_2011 = parseFloat(edu_data[i].college_higher_2007_2011);
-                                        //2008-2012
-                                        json.features[i].properties.less_hs_2008_2012 = parseFloat(edu_data[i].less_hs_2008_2012);
-                                        json.features[i].properties.hs_2008_2012 = parseFloat(edu_data[i].hs_2008_2012);
-                                        json.features[i].properties.some_college_2008_2012 = parseFloat(edu_data[i].some_college_2008_2012);
-                                        json.features[i].properties.college_higher_2008_2012 = parseFloat(edu_data[i].college_higher_2008_2012);
-                                        }
-                                }
-
-
-                                //Create path elements
-                                svg.selectAll("path").data(json.features).enter().append("path")
-                                .attr("d",path).attr("stroke","white").attr("fill", function(d) { 
-                                        var val = d.properties[level + year];
-                                        if(val){ return color(val); }
-                                        else{ return "#ccc";}
-                                        })
-                                .on("mouseover", function(d) {
-
-                                        //Get position of mouse
-                                        var coord = [0,0];
-                                        coord = d3.mouse(this);
-
-
-                                        //Update tooltip
-                                        var tip = d3.select("#tooltip").style("left", coord[0] + "px").style("top", coord[1] + "px");
-                                        tip.select("#value").text( function() { 
-                                            var val = d.properties[level + year]; 
-                                            if(val){return val;}
-                                            else{ return "Unavailable";}
-                                            });
-                                        tip.select("#level").text( function() {
-                                            if(level == 'less_hs_'){ return "less than a High School diploma";}
-                                            else if(level == 'hs_'){ return "a High School Diploma only";}
-                                            else if(level == 'some_college_'){ return "some college or Associate's degree";}
-                                            else{ return "a Bachelor's degree or higher";}
-                                            });
-                                        tip.select("#year").text( function() { 
-                                            return year.replace("_","-");
-                                            });
-
-                                        //Make tooltip visible
-                                        d3.select("#tooltip").classed("hidden",false);
-                                        
-                                        } )
-                                .on("mouseout", function() {
-                                        //Hide the tooltip
-                                        d3.select("#tooltip").classed("hidden",true);
-                                        });
-
-
-                            
-                            }
-                            } );
-            
-
-
-
-
-                    }           
-            }); 
-
-        </script>
+        <script src="ed_attainment.js"></script>
+        <!--D3 code to make STEM vis-->
+        <script src="stem.js"></script>
     </body>
 </html>

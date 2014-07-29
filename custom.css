@@ -1,12 +1,44 @@
-div#ed-attainment {
+/*General page*/
+
+
+div#selects label {
+    margin: 0 0 4px;
+    color: gray;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+div#ed-attainment, div#stem {
     position: relative;
+    padding-bottom: 35px;
+}
+
+
+/*Educational Attainment*/
+div#ed-attainment div#select_year{
+    padding-right: 5px;
+}
+
+div#ed-attainment div#play_year{
+    padding-left: 5px;
+}
+
+div#ed-attainment text.colorbar-text {
+    font-weight: bold;
+    fill: gray;
+    font-size: 14px;
 }
 
 div#ed-attainment svg g path:hover {
     fill: blue;
 }
 
-#tooltip {
+div#ed-attainment svg g x axis {
+    font-weight: bold;
+    color: gray;
+}
+
+div#ed-tooltip {
     position: absolute;
     width: 200px;
     height: auto;
@@ -21,9 +53,32 @@ div#ed-attainment svg g path:hover {
     pointer-events: none;
 }
 
-#tooltip p {
+div#ed-tooltip p {
     margin: 0;
     font-family: sans-serif;
     font-size: 12px;
     line-height: 16px;
 }
+
+/*STEM v Non-STEM*/
+
+div#stem path {
+    stroke: white;
+}
+
+div#stem text {
+    text-anchor: middle;
+    font-weight: bold;
+    fill: white;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+    font-size: 13px;
+}
+
+div#stem-left{
+    padding-right: 50px;
+}
+
+div#stem-right{
+    padding-left: 50px;
+}
+
