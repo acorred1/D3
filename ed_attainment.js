@@ -184,6 +184,35 @@ function make_ed_attainment(){
 
                                 });
 
+
+                        //Add source and descriptions of variables text  
+                        fineprt = d3.select("div#ed-attainment").append("div").classed("fineprint",true);
+                        fineprt.append("h5").text("Sources");
+                        /*jshint multistr: true */
+                        fineprt.append("p").text("Census Bureau, 1970, 1980, 1990, 2000 Censuses of Population, and the 2006-2010, 2007-2011, 2008-2012  \
+                                American Community Surveys. Available at: ")
+                                .append("a").attr("href","http://www.ers.usda.gov/data-products/county-level-data-sets/download-data.aspx#.U9gYxY1dVy9")
+                                .attr("target","_blank")
+                                .text("USDA Economic Research Center.");
+                        fineprt.append("h5").text("Description of Variables");
+                        fineprt.append("h6").text("Less than High School");
+                        fineprt.append("p").text("For 1970 and 1980, the share of adults (age 25 and older) with less than high school includes those who \
+                                had not completed the 12th grade.  From 1990 onward, the share includes those who did not receive a high school diploma or \
+                                its equivalent (such as a GED), but did not report college experience.");
+                        fineprt.append("h6").text("High School only");
+                        fineprt.append("p").text("For 1970 and 1980, the share of adults (age 25 and older) with high school only includes those who completed \
+                                12th grade only.  From 1990 onward, the share includes those who completed 12th grade and received a high school diploma or its \
+                                equivalent (such as a GED), but did not report college experience.");
+                        fineprt.append("h6").text("Some College");
+                        fineprt.append("p").text("For 1970 and 1980, the share of adults (age 25 and older) with some college includes those who completed from \
+                                one to three years of college.  From 1990 onward, the share includes those who reported completing at least one year of college \
+                                but did not receive a bachelor's degree.");
+                        fineprt.append("h6").text("College graduate ");
+                        fineprt.append("p").text("For 1970 and 1980, the share of adults (age 25 and older) who are college graduates includes those who completed \
+                                at four or more years of college regardless of degree earned. From 1990 onward, the share includes those who received a bachelor's \
+                                or higher degree");
+
+
                     }
                     } );
 

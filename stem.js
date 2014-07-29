@@ -18,6 +18,30 @@ function make_stem(){
         else{
             generate_vis(d3.select("div#stem-left"),data);
             generate_vis(d3.select("div#stem-right"),data);
+
+            //Add source and descriptions of variables text  
+            fineprt = d3.select("div#stem").append("div").classed("fineprint",true);
+            fineprt.append("h5").text("Source");
+            /*jshint multistr: true */
+            fineprt.append("p").text("U.S. Department of Commerce, Census Bureau, American Community Survey (ACS), 2011. Available at: ")
+                    .append("a").attr("href","http://nces.ed.gov/programs/digest/d13/tables/dt13_505.30.asp")
+                    .attr("target","_blank")
+                    .text("National Center for Education Statistics.");
+            fineprt.append("h5").text("Description of Variables");
+            fineprt.append("h6").text("All genders/All races");
+            fineprt.append("p").text("Total includes other racial/ethnic groups not shown separately.");
+            fineprt.append("h6").text("American Indian/Alaska Native");
+            fineprt.append("p").text("Includes persons reporting American Indian alone, persons reporting Alaska Native alone, \
+                    and persons from American Indian and/or Alaska Native tribes specified or not specified.");
+            fineprt.append("h6").text("Note");
+            fineprt.append("p").text("Estimates include persons in the indicated age range who live in households as well as those \
+                    who live in group quarters (such as college residence halls, residential treatment centers, military barracks, and\
+                    correctional facilities). Only employed persons who have a bachelor’s degree in a STEM field of study are included.\
+                    The first bachelor’s degree major reported by respondents was used to classify their field of study, even though\
+                    they were able to report a second bachelor’s degree major and may possess advanced degrees in other fields. \
+                    Aggregated occupation classifications were used to assemble the data, except that managers of STEM activities\
+                    were counted as practitioners of STEM occupations instead of 'Business workers/managers.' Detail may not sum \
+                    to totals because of rounding. Race categories exclude persons of Hispanic ethnicity");
         }
    } );
 
