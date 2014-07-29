@@ -1,0 +1,28 @@
+{
+"all":{"all": {"stem": 47.8, "non_stem": 52.2},
+"white": {"stem": 47.1, "non_stem": 52.9},
+"black": {"stem": 39.5, "non_stem": 60.5},
+"hispanic": {"stem": 38.2, "non_stem": 61.8},
+"asian": {"stem": 59.3, "non_stem": 40.7},
+"american_indian_alaska_native": {"stem": 40.3, "non_stem": 59.7},
+"two_or_more": {"stem": 46.8, "non_stem": 53.2}
+},
+
+"male": {"all": {"stem": 48.9, "non_stem": 51.1},
+"white": {"stem": 46.5, "non_stem": 53.5},
+"black": {"stem": 39.7, "non_stem": 60.3},
+"hispanic": {"stem": 39.5, "non_stem": 60.5},
+"asian": {"stem": 63.8, "non_stem": 36.2},
+"american_indian_alaska_native": {"stem": 37.0, "non_stem": 63.0},
+"two_or_more": {"stem": 48.0, "non_stem": 52.0}
+},
+
+"female": {"all":{"stem": 46.7, "non_stem": 53.3},
+"white": {"stem": 47.7, "non_stem": 52.3},
+"black": {"stem": 39.4, "non_stem": 60.6},
+"hispanic": {"stem": 36.9, "non_stem": 63.1},
+"asian": {"stem": 53.2, "non_stem": 46.8},
+"american_indian_alaska_native": {"stem": 42.2, "non_stem": 57.8},
+"two_or_more": {"stem": 45.5, "non_stem": 54.5}
+}
+}
