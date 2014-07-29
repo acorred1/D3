@@ -1,5 +1,24 @@
 /*General page*/
 
+div.fineprint {
+    padding-top: 100px;
+}
+
+div.fineprint h6, h5 {
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+div.fineprint h5 {
+    font-size: 12px;
+}
+
+div.fineprint h6 {
+    font-size: 10px;
+}
+
+div.fineprint p {
+    font-size: 9px;
+}
 
 div#selects label {
     margin: 0 0 4px;
