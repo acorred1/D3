@@ -1,5 +1,17 @@
 /*General page*/
 
+body { 
+    background: url(img/halftone.png) repeat 0 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Corben', Georgia, Times, serif;
+}
+             
+p, div {
+    font-family: 'Nobile', Helvetica, Arial, sans-serif;
+}
+
 div.fineprint {
     padding-top: 100px;
 }
@@ -49,7 +61,7 @@ div#ed-attainment text.colorbar-text {
 }
 
 div#ed-attainment svg g path:hover {
-    fill: blue;
+    fill: orange;
 }
 
 div#ed-attainment svg g x axis {
@@ -79,6 +91,12 @@ div#ed-tooltip p {
     line-height: 16px;
 }
 
+button#play_year {
+    background-color: rgb(247,81,10);
+    border-color: rgb(217,206,202);
+}
+
+
 /*STEM v Non-STEM*/
 
 div#stem path {
@@ -86,6 +104,7 @@ div#stem path {
 }
 
 div#stem text {
+    font-family: sans-serif;
     text-anchor: middle;
     font-weight: bold;
     fill: white;
