@@ -8,7 +8,7 @@ function make_ed_attainment(){
     //Define path generator
     var path = d3.geo.path().projection(projection);
     //Define color scale on percents
-    var color = d3.scale.linear().range(["white","red"]);
+    var color = d3.scale.linear().range(["white","blue"]);
     //Creat svg element
     var svg = d3.select("div#ed-attainment").append("svg")
                 .attr("width", width + margin.left + margin.right)
@@ -78,8 +78,8 @@ function make_ed_attainment(){
 
 
                         //Create color bar for reference
-                        var bars_width = 690, bar_height = 15, bars_padding = 40, text_offset = 20;
-                        //Dummy dataset where each bar will be a fraction of percent in the renge of edu_min to edu_max
+                        var bars_width = 690, bar_height = 15, bars_padding = 30, text_offset = 20;
+                        //Dummy dataset where each bar will be a fraction of percent in the range of edu_min to edu_max
                         var bars = d3.range(Math.floor(edu_min),Math.floor(edu_max)+1,0.25); 
                         //Scale for the x coordinate of the rects making the color bar
                         var xScale = d3.scale.ordinal().domain(d3.range(bars.length)).rangeRoundBands([0,bars_width]);
