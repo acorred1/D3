@@ -38,43 +38,43 @@ function make_ed_attainment(){
 
                         //Create path elements
                         svg.selectAll("path").data(json.features).enter().append("path")
-                        .attr("d",path).attr("stroke","white").attr("fill", function(d) { 
-                                var val = d.properties[level + year];
-                                if(val){ return color(val); }
-                                else{ return "#ccc";}
-                                })
-                        .on("mouseover", function(d) {
+                            .attr("d",path).attr("stroke","white").attr("fill", function(d) { 
+                                    var val = d.properties[level + year];
+                                    if(isNaN(val)){ return '#ccc'; }
+                                    else{ return color(val);}
+                                    })
+                            .on("mouseover", function(d) {
 
-                                //Get position of mouse
-                                var coord = [0,0];
-                                coord = d3.mouse(this);
+                                    //Get position of mouse
+                                    var coord = [0,0];
+                                    coord = d3.mouse(this);
 
-                                //Update tooltip
-                                var tip = d3.select("#ed-tooltip").style("left", coord[0] + "px").style("top", coord[1] + "px");
-                                tip.select(".value").text( function() { 
-                                    var val = d.properties[level + year]; 
-                                    if(val){return val;}
-                                    else{ return "Unavailable";}
-                                    });
-                                tip.select("#level").text( function() {
-                                    if(level == 'less_hs_'){ return "less than a High School diploma";}
-                                    else if(level == 'hs_'){ return "a High School Diploma only";}
-                                    else if(level == 'some_college_'){ return "some college or Associate's degree";}
-                                    else{ return "a Bachelor's degree or higher";}
-                                    });
-                                tip.select("#state").text(function(){ return d.properties.name;});
-                                tip.select("#year").text( function() { 
-                                    return year.replace("_","-");
-                                    });
+                                    //Update tooltip
+                                    var tip = d3.select("#ed-tooltip").style("left", coord[0] + "px").style("top", coord[1] + "px");
+                                    tip.select(".value").text( function() { 
+                                        var val = d.properties[level + year]; 
+                                        if(isNaN(val)){ return "Unavailable";}
+                                        else{return val;}
+                                        });
+                                    tip.select("#level").text( function() {
+                                        if(level == 'less_hs_'){ return "less than a High School diploma";}
+                                        else if(level == 'hs_'){ return "a High School Diploma only";}
+                                        else if(level == 'some_college_'){ return "some college or Associate's degree";}
+                                        else{ return "a Bachelor's degree or higher";}
+                                        });
+                                    tip.select("#state").text(function(){ return d.properties.name;});
+                                    tip.select("#year").text( function() { 
+                                        return year.replace("_","-");
+                                        });
 
-                                //Make tooltip visible
-                                tip.classed("hidden",false);
-                                
-                                } )
-                        .on("mouseout", function() {
-                                //Hide the tooltip
-                                d3.select("#ed-tooltip").classed("hidden",true);
-                                });
+                                    //Make tooltip visible
+                                    tip.classed("hidden",false);
+                                    
+                                    } )
+                            .on("mouseout", function() {
+                                    //Hide the tooltip
+                                    d3.select("#ed-tooltip").classed("hidden",true);
+                                    });
 
 
                         //Create color bar for reference
@@ -128,8 +128,8 @@ function make_ed_attainment(){
                                 year = d3.select("select#year").property("value");
                                 svg.selectAll("path").transition().duration(transition_duration).attr("fill", function(d) {
                                         var val = d.properties[level + year];
-                                        if(val){ return color(val); }
-                                        else{ return "#ccc";}
+                                        if(isNaN(val)){ return '#ccc'; }
+                                        else{ return color(val);}
                                     } );
                                 });
 
@@ -137,8 +137,8 @@ function make_ed_attainment(){
                                 level = d3.select("select#level").property("value");
                                 svg.selectAll("path").transition().duration(transition_duration).attr("fill", function(d) {
                                         var val = d.properties[level + year];
-                                        if(val){ return color(val); }
-                                        else{ return "#ccc";}
+                                        if(isNaN(val)){ return '#ccc'; }
+                                        else{ return color(val);}
                                         });
                                 });
 
